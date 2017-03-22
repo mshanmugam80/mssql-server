@@ -57,6 +57,11 @@ wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd6
 dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
 rm -rf ${DWNLAD_DIR}
 
+DWNLAD_DIR=`mktemp`
+wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_3.13.0.92.99_all.deb -qO ${DWNLAD_DIR}
+dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
+rm -rf ${DWNLAD_DIR}
+
 export PATH="${BUILD_DIR}/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu:${BUILD_DIR}/.apt/usr/lib/i386-linux-gnu:${BUILD_DIR}/.apt/usr/lib:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu:${BUILD_DIR}/.apt/usr/lib/i386-linux-gnu:${BUILD_DIR}/.apt/usr/lib:$LIBRARY_PATH"
