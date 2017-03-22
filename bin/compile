@@ -56,7 +56,7 @@ gpg --import mssql_key.gpg
 mkdir -p ${BUILD_DIR}/.apt
 DWNLAD_DIR=`mktemp`
 wget ${SQL_DWLD_URL} -qO ${DWNLAD_DIR}
-dpkg -x $FILE ${BUILD_DIR}/.apt/
+dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
 rm -rf ${DWNLAD_DIR}
 
 export PATH="${BUILD_DIR}/.apt/usr/bin:$PATH"
