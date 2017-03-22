@@ -50,6 +50,13 @@ APT_OPTIONS="-o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state
 print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
+print "Install libjemalloc"
+DWNLAD_DIR=`mktemp`
+mkdir -p ${BUILD_DIR}/.apt
+wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc-dev_3.0.0-3_amd64.deb -qO ${DWNLAD_DIR}
+dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
+rm -rf ${DWNLAD_DIR}
+
 export PATH="${BUILD_DIR}/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu:${BUILD_DIR}/.apt/usr/lib/i386-linux-gnu:${BUILD_DIR}/.apt/usr/lib:$LD_LIBRARY_PATH"
 export LIBRARY_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu:${BUILD_DIR}/.apt/usr/lib/i386-linux-gnu:${BUILD_DIR}/.apt/usr/lib:$LIBRARY_PATH"
@@ -63,7 +70,7 @@ SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main
 wget https://packages.microsoft.com/keys/microsoft.asc -O - > mssql_key.gpg
 gpg --import mssql_key.gpg
 mkdir -p ${BUILD_DIR}/mssql
-DWNLAD_DIR=`mktemp`
+
 wget ${SQL_DWLD_URL} -qO ${DWNLAD_DIR}
 dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/mssql
 rm -rf ${DWNLAD_DIR}
