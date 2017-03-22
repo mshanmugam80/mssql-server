@@ -82,5 +82,5 @@ EOF
 
 print "Procfile setting"
 cat <<EOF >${BUILD_DIR}/Procfile
-web: ${HOME}/.apt/opt/mssql/bin/mssqlserv.sh
+web: ${HOME}/.apt/opt/mssql/bin/sqlserv.sh
 EOF
