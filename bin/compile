@@ -53,7 +53,7 @@ apt-get $APT_OPTIONS update | indent
 print "Install libjemalloc"
 DWNLAD_DIR=`mktemp`
 mkdir -p ${BUILD_DIR}/.apt
-wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc-dev_3.0.0-3_amd64.deb -qO ${DWNLAD_DIR}
+wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${DWNLAD_DIR}
 dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
 rm -rf ${DWNLAD_DIR}
 
