@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 cat <<EOF
-
+config_vars:
+ACCEPT_EULA: Y
+SA_PASSWORD: Soft@1234
 EOF
