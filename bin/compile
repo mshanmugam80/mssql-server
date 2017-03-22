@@ -54,12 +54,10 @@ SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main
 wget https://packages.microsoft.com/keys/microsoft.asc -O - > mssql_key.gpg
 gpg --import mssql_key.gpg
 mkdir -p ${BUILD_DIR}/.apt
-wget ${SQL_DWLD_URL} -qO ${LD_DIR}/lib
-li ${LD_DIR}
-for DEB in $(ls -1 $LD_DIR/lib/*.deb); do
-  print "Installing $(basename $DEB)"
-  dpkg -x $DEB ${BUILD_DIR}/.apt/
-done
+DWNLAD_DIR=`mktemp`
+wget ${SQL_DWLD_URL} -qO ${DWNLAD_DIR}
+dpkg -x $FILE ${BUILD_DIR}/.apt/
+rm -rf ${DWNLAD_DIR}
 
 export PATH="${BUILD_DIR}/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu:${BUILD_DIR}/.apt/usr/lib/i386-linux-gnu:${BUILD_DIR}/.apt/usr/lib:$LD_LIBRARY_PATH"
