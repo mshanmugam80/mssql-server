@@ -55,7 +55,7 @@ wget https://packages.microsoft.com/keys/microsoft.asc -O - > mssql_key.gpg
 gpg --import mssql_key.gpg
 mkdir -p ${BUILD_DIR}/.apt
 wget ${SQL_DWLD_URL} -qO ${LD_DIR}/lib
-
+li ${LD_DIR}
 for DEB in $(ls -1 $LD_DIR/lib/*.deb); do
   print "Installing $(basename $DEB)"
   dpkg -x $DEB ${BUILD_DIR}/.apt/
