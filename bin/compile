@@ -51,7 +51,8 @@ print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.304.138-1_amd64.deb"
-apt-key adv --fetch-keys http://packages.microsoft.com/keys/microsoft.asc
+wget https://packages.microsoft.com/keys/microsoft.asc -O - > mssql_key.gpg
+gpg --import mssql_key.gpg
 mkdir -p ${BUILD_DIR}/.apt
 wget ${SQL_DWLD_URL} -qO ${LD_DIR}/lib
 
