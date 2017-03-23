@@ -58,8 +58,8 @@ apt-get $APT_OPTIONS update | indent
 
 print "Packages download starts"
 mkdir -p ${BUILD_DIR}/lib
-wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${BUILD_DIR}/lib/
-wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_4.4.0.21.22_all.deb -qO ${BUILD_DIR}/lib/
+wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${BUILD_DIR}/lib/libjemalloc1_3.6.0-3_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_4.4.0.21.22_all.deb -qO ${BUILD_DIR}/lib/linux-source_4.4.0.21.22_all.deb
 print "Packages downloaded"
 
 ls -1 ${BUILD_DIR}/lib/
