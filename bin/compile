@@ -57,7 +57,14 @@ print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 print "mssql installing"
-apt-get $APT_OPTIONS -y --force-yes -d install --reinstall mssql-server | indent
+SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.304.138-1_amd64.deb"
+apt-get download $SQL_DWLD_URL
+apt-get source mssql-server
+cd mssql-server
+./configure --prefix=$HOME
+make
+make install
+#apt-get $APT_OPTIONS -y --force-yes -d install --reinstall mssql-server | indent
 print "mssql installed"
 
 #print "Packages download starts"
@@ -99,7 +106,7 @@ print "Rewrite package-config files"
 find $BUILD_DIR/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty -n 1 sed -i -e 's!^prefix=\(.*\)$!prefix='"$BUILD_DIR"'/.apt\1!g'
 
 #print "mssql package download starts"
-#SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.405.200-1_amd64.deb"
+#SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.304.138-1_amd64.deb"
 #FILE=`mktemp`
 #wget ${SQL_DWLD_URL} -qO $FILE
 #print "mssql package download ends"
