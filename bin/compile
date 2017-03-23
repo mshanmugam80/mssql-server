@@ -59,7 +59,7 @@ apt-get $APT_OPTIONS update | indent
 print "Packages download starts"
 mkdir -p ${BUILD_DIR}/lib
 wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${BUILD_DIR}/lib/libjemalloc1_3.6.0-3_amd64.deb
-wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_4.4.0.21.22_all.deb -qO ${BUILD_DIR}/lib/linux-source_4.4.0.21.22_all.deb
+wget http://mirrors.kernel.org/ubuntu/pool/universe/libc/libc++/libc++1_3.7.0-1_amd64.deb -qO ${BUILD_DIR}/lib/libc++1_3.7.0-1_amd64.deb
 wget http://archive.ubuntu.com/ubuntu/pool/main/g/gedit/gedit_3.10.4-0ubuntu4_amd64.deb -qO ${BUILD_DIR}/lib/gedit_3.10.4-0ubuntu4_amd64.deb
 print "Packages download ended"
 
