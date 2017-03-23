@@ -56,16 +56,16 @@ APT_OPTIONS="-o debug::nolocking=true -o dir::cache=$APT_CACHE_DIR -o dir::state
 print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
-DWNLAD_DIR=`mktemp`
-wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${DWNLAD_DIR}
-dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
-#wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_4.4.0.21.22_all.deb -qO ${DWNLAD_DIR}
-#ls -1 $DWNLAD_DIR/*.deb
-#for DEB in $(ls -1 $DWNLAD_DIR/*.deb); do
-#  print "Installing $(basename $DEB)"
-#  dpkg -x $DEB ${BUILD_DIR}/.apt/
-#done
-#rm -rf ${DWNLAD_DIR}
+mkdir -p ${BUILD_DIR}/lib
+wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${BUILD_DIR}/lib
+wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_4.4.0.21.22_all.deb -qO ${BUILD_DIR}/lib
+
+ls -1 ${BUILD_DIR}/lib
+for DEB in $(ls -1 ${BUILD_DIR}/lib/*.deb); do
+  print "Installing $(basename $DEB)"
+  dpkg -x $DEB ${BUILD_DIR}/.apt/
+done
+rm -rf ${BUILD_DIR}/lib
 
 export PATH="${BUILD_DIR}/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu:${BUILD_DIR}/.apt/usr/lib/i386-linux-gnu:${BUILD_DIR}/.apt/usr/lib:$LD_LIBRARY_PATH"
