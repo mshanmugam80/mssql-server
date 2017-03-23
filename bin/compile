@@ -79,8 +79,9 @@ export PKG_CONFIG_PATH="${BUILD_DIR}/.apt/usr/lib/x86_64-linux-gnu/pkgconfig:${B
 export | grep -E -e ' (PATH|LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPPATH|PKG_CONFIG_PATH)='  > "$LD_DIR/export"
 
 SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.405.200-1_amd64.deb"
-wget ${SQL_DWLD_URL} -qO ${DWNLAD_DIR}/mssql-server_14.0.405.200-1_amd64.deb
-dpkg -x ${DWNLAD_DIR}/mssql-server_14.0.405.200-1_amd64.deb ${BUILD_DIR}/
+FILE=`mktemp`
+wget ${SQL_DWLD_URL} -qO $FILE
+dpkg -x $FILE ${BUILD_DIR}
 rm -rf ${DWNLAD_DIR}
 
 export PATH="${HOME}:${PATH}"
