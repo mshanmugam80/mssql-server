@@ -61,6 +61,7 @@ mkdir -p ${BUILD_DIR}/lib
 wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${BUILD_DIR}/lib/libjemalloc1_3.6.0-3_amd64.deb
 wget http://mirrors.kernel.org/ubuntu/pool/universe/libc/libc++/libc++1_3.7.0-1_amd64.deb -qO ${BUILD_DIR}/lib/libc++1_3.7.0-1_amd64.deb
 wget http://archive.ubuntu.com/ubuntu/pool/main/g/gedit/gedit_3.10.4-0ubuntu4_amd64.deb -qO ${BUILD_DIR}/lib/gedit_3.10.4-0ubuntu4_amd64.deb
+wget http://mirrors.kernel.org/ubuntu/pool/main/n/numactl/libnuma1_2.0.9~rc5-1ubuntu2_amd64.deb -qO ${BUILD_DIR}/lib/libnuma1_2.0.9~rc5-1ubuntu2_amd64.deb
 print "Packages download ended"
 
 ls -1 ${BUILD_DIR}/lib/
