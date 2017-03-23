@@ -58,12 +58,10 @@ apt-get $APT_OPTIONS update | indent
 
 print "mssql installing"
 SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.304.138-1_amd64.deb"
-apt-get download $SQL_DWLD_URL
-apt-get source mssql-server
-cd mssql-server
-./configure --prefix=$HOME
-make
-make install
+FILE=`mktemp`
+wget ${SQL_DWLD_URL} -qO $FILE
+dpkg -x $FILE ${BUILD_DIR}/.apt
+rm -rf $FILE
 #apt-get $APT_OPTIONS -y --force-yes -d install --reinstall mssql-server | indent
 print "mssql installed"
 
