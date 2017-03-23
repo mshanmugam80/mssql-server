@@ -57,7 +57,8 @@ print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 DWNLAD_DIR=`mktemp`
-#wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${DWNLAD_DIR}
+wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${DWNLAD_DIR}
+dpkg -x ${DWNLAD_DIR} ${BUILD_DIR}/.apt/
 #wget http://archive.ubuntu.com/ubuntu/pool/main/l/linux-meta/linux-source_4.4.0.21.22_all.deb -qO ${DWNLAD_DIR}
 #ls -1 $DWNLAD_DIR/*.deb
 #for DEB in $(ls -1 $DWNLAD_DIR/*.deb); do
