@@ -90,6 +90,7 @@ find $BUILD_DIR/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty
 
 #export PATH="${HOME}:${PATH}"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+export PATH="/usr/sbin:$PATH"
 
 #print "Procfile setting"
 #cat <<EOF >${BUILD_DIR}/Procfile
