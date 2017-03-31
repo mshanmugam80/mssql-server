@@ -57,7 +57,7 @@ print "Updating apt caches"
 apt-get $APT_OPTIONS update | indent
 
 print "mssql installing"
-SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.304.138-1_amd64.deb"
+SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.405.200-1_amd64.deb"
 FILE=`mktemp`
 wget ${SQL_DWLD_URL} -qO $FILE
 dpkg -x $FILE ${BUILD_DIR}/.apt
@@ -65,24 +65,9 @@ rm -rf $FILE
 #apt-get $APT_OPTIONS -y --force-yes -d install --reinstall mssql-server | indent
 print "mssql installed"
 
-#print "Packages download starts"
-mkdir -p ${BUILD_DIR}/lib
-#wget http://ftp.debian.org/debian/pool/main/j/jemalloc/libjemalloc1_3.6.0-3_amd64.deb -qO ${BUILD_DIR}/lib/libjemalloc1_3.6.0-3_amd64.deb
-#wget http://mirrors.kernel.org/ubuntu/pool/universe/libc/libc++/libc++1_3.7.0-1_amd64.deb -qO ${BUILD_DIR}/lib/libc++1_3.7.0-1_amd64.deb
-#wget http://archive.ubuntu.com/ubuntu/pool/main/g/gedit/gedit_3.10.4-0ubuntu4_amd64.deb -qO ${BUILD_DIR}/lib/gedit_3.10.4-0ubuntu4_amd64.deb
-#wget http://mirrors.kernel.org/ubuntu/pool/main/n/numactl/libnuma1_2.0.9~rc5-1ubuntu2_amd64.deb -qO ${BUILD_DIR}/lib/libnuma1_2.0.9~rc5-1ubuntu2_amd64.deb
-#print "Packages download ended"
-
-ls -1 ${BUILD_DIR}/lib/
-for DEB in $(ls -1 ${BUILD_DIR}/lib/*.deb); do
-  print "Installing $(basename $DEB)"
-  dpkg -x $DEB ${BUILD_DIR}/.apt/
-done
-rm -rf ${BUILD_DIR}/lib
-
 mkdir -p ${BUILD_DIR}/.profile.d
 cat <<EOF >${BUILD_DIR}/.profile.d/000_apt.sh
-export PATH="$HOME:$HOME/.apt/usr/bin:$PATH"
+export PATH="$HOME/.apt/usr/bin:$PATH"
 export LD_LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$HOME/.apt/usr/lib/i386-linux-gnu:\$HOME/.apt/usr/lib:\$LD_LIBRARY_PATH"
 export LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$HOME/.apt/usr/lib/i386-linux-gnu:\$HOME/.apt/usr/lib:\$LIBRARY_PATH"
 export INCLUDE_PATH="\$HOME/.apt/usr/include:\$INCLUDE_PATH"
@@ -103,21 +88,10 @@ export | grep -E -e ' (PATH|LD_LIBRARY_PATH|LIBRARY_PATH|INCLUDE_PATH|CPATH|CPPP
 print "Rewrite package-config files"
 find $BUILD_DIR/.apt -type f -ipath '*/pkgconfig/*.pc' | xargs --no-run-if-empty -n 1 sed -i -e 's!^prefix=\(.*\)$!prefix='"$BUILD_DIR"'/.apt\1!g'
 
-#print "mssql package download starts"
-#SQL_DWLD_URL="https://packages.microsoft.com/ubuntu/16.04/mssql-server/pool/main/m/mssql-server/mssql-server_14.0.304.138-1_amd64.deb"
-#FILE=`mktemp`
-#wget ${SQL_DWLD_URL} -qO $FILE
-#print "mssql package download ends"
-
-#print "mssql installing"
-#dpkg -x $FILE ${BUILD_DIR}
-#rm -rf ${DWNLAD_DIR}
-#print "mssql installed"
-
 #export PATH="${HOME}:${PATH}"
-#export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
 
-print "Procfile setting"
-cat <<EOF >${BUILD_DIR}/Procfile
-web: ${HOME}/opt/mssql/bin/sqlserv
-EOF
+#print "Procfile setting"
+#cat <<EOF >${BUILD_DIR}/Procfile
+#web: ${HOME}/opt/mssql/bin/sqlserv
+#EOF
